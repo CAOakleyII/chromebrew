@@ -10,13 +10,12 @@ class Mongodb < Package
 
   def self.install
     system "sudo cp -R -n bin/* #{CREW_BIN_PATH}"
-
-    out = "#{CREW_PREFIX}/data/db"
-    system "sudo mkdir -p", out
+    
     puts "------------------"
     puts "Installation success!"
     puts "To get started, you need to initialize a database directory"
-    puts "A default database was initialized at /usr/local/data/db"
+    puts "initialize at /usr/local/data/db"
+    puts "sudo mkdir -p /usr/local/data/db"
     puts "To run your database: 'mongod --dbpath /usr/local/data/db'"
     puts "Connect to database: 'mongo'"
   end
