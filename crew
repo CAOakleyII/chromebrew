@@ -10,6 +10,7 @@ require 'fileutils'
 @pkgName = ARGV[1]
 
 CREW_PREFIX = '/usr/local'
+CREW_BIN_PATH = CREW_PREFIX + '/bin'
 CREW_LIB_PATH = CREW_PREFIX + '/lib/crew/'
 CREW_CONFIG_PATH = CREW_PREFIX + '/etc/crew/'
 CREW_BREW_DIR = CREW_PREFIX + '/tmp/crew/'
@@ -36,7 +37,7 @@ def list_packages
   Find.find (CREW_LIB_PATH + 'packages') do |filename|
     Find.find(CREW_CONFIG_PATH + 'meta/') do |packageList|
         packageName = File.basename filename, '.rb'
-        print '(i) ' if packageList == CREW_CONFIG_PATH + 'meta/' + packageName + '.filelist' 
+        print '(i) ' if packageList == CREW_CONFIG_PATH + 'meta/' + packageName + '.filelist'
     end
     puts File.basename filename, '.rb' if File.extname(filename) == '.rb'
   end
@@ -58,7 +59,7 @@ def update
     system "git reset --hard origin/master"
   end
   puts "Package lists, crew, and library updated."
-  
+
   #check for outdated installed packages
   puts "Checking for package updates..."
   puts ""
@@ -71,7 +72,7 @@ def update
       puts @pkg.name + " could be updated from " + package[:version] + " to " + @pkg.version
     end
   end
-  
+
   if canBeUpdated > 0
     puts ""
     puts "Run 'crew upgrade' to upgrade everything or 'crew upgrade <packageName>' to upgrade a specific package."
@@ -90,11 +91,11 @@ def upgrade
         currentVersion = package[:version]
       end
     end
-    
+
     if currentVersion != @pkg.version
       search @pkg.name
       puts "Updating #{@pkg.name}..."
-      remove 
+      remove
       resolveDependenciesAndInstall
     else
       puts "#{@pkg.name} is already up to date."
@@ -107,7 +108,7 @@ def upgrade
         toBeUpdated.push(package[:name])
       end
     end
-  
+
     if toBeUpdated.length > 0
       puts "Updating packages..."
       toBeUpdated.each do |package|
@@ -152,10 +153,10 @@ def resolveDependenciesAndInstall
     origin = @pkg.name
 
     resolveDependencies
-  
+
     search origin
     install
-  rescue InstallError => e 
+  rescue InstallError => e
     puts "#{@pkg.name} failed to install: #{e.to_s}"
   ensure
     #cleanup
@@ -174,25 +175,25 @@ def resolveDependencies
   def pushDeps
     if @pkg.dependencies
       @dependencies.unshift @pkg.dependencies
-      
+
       @pkg.dependencies.each do |dep|
         search dep, true
         pushDeps
       end
     end
   end
-  
+
   pushDeps
-  
+
   return if @dependencies.empty?
 
   puts "Following packages also need to be installed: "
-  
+
   @dependencies.flatten!.uniq!
   @dependencies.each do |dep|
     print dep + " "
   end
-  
+
   puts ""
   puts "Do you agree? [Y/n]"
   response = STDIN.getc
@@ -248,7 +249,7 @@ def install
           system "tail -n +2 dlistcut > dlist"
           #remove temporary files
           system "rm dlistcut ../dlist ../filelist"
-          
+
           #create resulting folders list
           directories = []
           Dir.glob('*').select do |fn|
@@ -271,7 +272,7 @@ def install
 
       FileUtils.mv 'dlist', CREW_CONFIG_PATH + "meta/#{@pkg.name}.directorylist"
       FileUtils.mv 'filelist', CREW_CONFIG_PATH + "meta/#{@pkg.name}.filelist"
- 
+
       File.open(CREW_CONFIG_PATH + "meta/#{@pkg.name}.directorylist").each_line do |line|
         system "sudo", "mkdir", "-p", line.chomp
       end
@@ -281,7 +282,7 @@ def install
       end
     end
   end
-  
+
   #add to installed packages
   @device[:installed_packages].push(name: @pkg.name, version: @pkg.version)
   File.open(CREW_CONFIG_PATH + 'device.json', 'w') do |file|
@@ -296,7 +297,7 @@ def remove
     puts "Package #{@pkg.name} isn't installed."
     return
   end
-  
+
   unless @pkg.is_fake?
     Dir.chdir CREW_CONFIG_PATH do
       File.open("meta/#{@pkg.name}.filelist").each_line do |line|
@@ -305,7 +306,7 @@ def remove
         rescue => exception #swallow exception
         end
       end
-  
+
       File.readlines("meta/#{@pkg.name}.directorylist").reverse.each do |line|
         begin
           Dir.rmdir line.chomp

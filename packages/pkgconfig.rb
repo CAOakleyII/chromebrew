@@ -8,7 +8,7 @@ class Pkgconfig < Package
   depends_on 'buildessential'
 
   def self.build
-    system "./configure --prefix=/usr"
+    system "./configure --prefix=/usr/local"
     system "make"
   end
 
