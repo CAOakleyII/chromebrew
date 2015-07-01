@@ -8,7 +8,7 @@ class Xmlparser < Package
   depends_on 'perl'
 
   def self.build
-    system "perl Makefile.PL PREFIX=/usr/local"
+    system "perl Makefile.PL"
     system "make"
   end
 
