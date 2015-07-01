@@ -3,7 +3,7 @@ require 'package'
 class Pkgconfig < Package
   version '0.22.0'
   source_url 'http://pkgconfig.freedesktop.org/releases/pkg-config-0.22.tar.gz'
-  source_sha1 'fd5c547e9d66ba49bc735ccb8c791f2a'
+  source_sha1 '3ec40bda9864d7aa3c912c6ae87a750fd8b6e420'
 
   depends_on 'buildessential'
 
