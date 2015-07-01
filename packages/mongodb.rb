@@ -3,7 +3,7 @@ require 'package'
 class Mongodb < Package
   version '3.0.4'
   source_url 'https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-3.0.4.tgz'
-  source_sha1 '66fab6125ccf2feb2316dd92686ff7c0f96a9780'
+  source_sha1 '5ca5e9a393e7c47706f15e431bc7a747ba859548'
 
   def self.build
   end
