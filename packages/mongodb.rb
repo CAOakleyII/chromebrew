@@ -9,7 +9,7 @@ class Mongodb < Package
   end
 
   def self.install
-    system "cp -R -n bin/* #{CREW_BIN_PATH}"
+    system "sudo cp -R -n bin/* #{CREW_BIN_PATH}"
 
     out = "#{CREW_DEST_DIR}/data/db"
     system "mkdir", out
