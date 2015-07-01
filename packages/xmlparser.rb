@@ -8,11 +8,11 @@ class Xmlparser < Package
   depends_on 'perl'
 
   def self.build
-    system "perl Makefile.PL PREFIX=/usr/local INSTALLDIRS=#{CREW_DEST_DIR}"
+    system "perl Makefile.PL PREFIX=/usr/local"
     system "make"
   end
 
   def self.install
-    system "make install"
+    system "make", "DESTDIR=#{CREW_DEST_DIR}", "install"
   end
 end
