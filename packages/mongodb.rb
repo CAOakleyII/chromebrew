@@ -12,7 +12,7 @@ class Mongodb < Package
     system "sudo cp -R -n bin/* #{CREW_BIN_PATH}"
 
     out = "#{CREW_PREFIX}/data/db"
-    system "mkdir", out
+    system "mkdir -p", out
     puts "------------------"
     puts "Installation success!"
     puts "To get started, you need to initialize a database directory"
