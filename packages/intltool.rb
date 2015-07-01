@@ -8,7 +8,7 @@ class Intltool < Package
   depends_on 'xmlparser'
 
   def self.build
-    system "./configure --prefix=/usr/local"
+    system "./configure"
   end
 
   def self.install
