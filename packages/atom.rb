@@ -5,9 +5,9 @@ class Atom < Package
   source_url 'https://github.com/atom/atom/archive/v1.0.0.tar.gz'
   source_sha1 '66fab6125ccf2feb2316dd92686ff7c0f96a9780'
 
-  depends_on 'gcc'
   depends_on 'buildessential'
   depends_on 'nodejs'
+  depends_on 'pkgconfig'
 
   def self.build
     system "script/build"
