@@ -8,11 +8,10 @@ class Xmlparser < Package
   depends_on 'perl'
 
   def self.build
-    system "perl Makefile.PL"
-    system "make"
+    puts "build finished"
   end
 
   def self.install
-    system "make", "DESTDIR=#{CREW_DEST_DIR}", "install"
+    system "sudo perl -MCPAN -e 'install XML::Parser'"
   end
 end
