@@ -11,7 +11,7 @@ class Mongodb < Package
   def self.install
     system "sudo cp -R -n bin/* #{CREW_BIN_PATH}"
 
-    out = "#{CREW_DEST_DIR}/data/db"
+    out = "#{CREW_PREFIX}/data/db"
     system "mkdir", out
     puts "------------------"
     puts "Installation success!"
