@@ -15,7 +15,7 @@ Installation
 
 Download and run the installation script
 
-    wget -q -O - https://raw.github.com/skycocker/chromebrew/master/install.sh | bash
+    wget -q -O - https://raw.github.com/caoakleyii/chromebrew/master/install.sh | bash
 
 Usage
 -----
@@ -29,7 +29,7 @@ Where available commands are:
   * install [installs a package along with its dependencies. You'll be prompted for confirmation]
   * remove [removes a package. Must be ran as root]
   
-Available packages are listed in the [packages directory](https://github.com/skycocker/chromebrew/tree/master/packages).
+Available packages are listed in the [packages directory](https://github.com/caoakleyii/chromebrew/tree/master/packages).
 
 Chromebrew will wipe its `BREW_DIR` (`/usr/local/tmp/crew` by default) after installation unless you pass "keep" as the last parameter when running "crew install".
 
