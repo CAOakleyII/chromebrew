@@ -8,6 +8,11 @@ class Intltool < Package
   depends_on 'xmlparser'
 
   def self.build
+    system "perl -e shell -MCPAN"
+    system "yes"
+    system "local::user"
+    system "yes"
+    system "install XML::Parser"
     system "./configure"
   end
 
